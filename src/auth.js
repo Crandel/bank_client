@@ -1,18 +1,18 @@
-import router from '../router';
+import router from "./router.js";
 
-const LOGIN_URL = 'users/login';
-const SIGNUP_URL = 'users/signup';
+const LOGIN_URL = "users/login";
+const SIGNUP_URL = "users/signup";
 
 export default {
 
     user: {
-        authenticated: false,
+        authenticated: false
     },
 
     login(context, creds, redirect) {
         context.$http.post(LOGIN_URL, creds).then(
             (data) => {
-                localStorage.setItem('id_token', data.body.token),
+                localStorage.setItem("id_token", data.body.token),
 
                 this.user.authenticated = true;
 
@@ -32,7 +32,7 @@ export default {
     signup(context, creds, redirect) {
         context.$http.post(SIGNUP_URL, creds).then(
             (data) => {
-                localStorage.setItem('id_token', data.data.token);
+                localStorage.setItem("id_token", data.data.token);
 
                 this.user.authenticated = true;
 
@@ -47,12 +47,12 @@ export default {
     },
 
     logout() {
-        localStorage.removeItem('id_token');
+        localStorage.removeItem("id_token");
         this.user.authenticated = false;
     },
 
     checkAuth() {
-        const token = localStorage.getItem('id_token');
+        const token = localStorage.getItem("id_token");
         if (token) {
             this.user.authenticated = true;
         } else {
@@ -62,7 +62,7 @@ export default {
 
     getAuthHeader() {
         return {
-            Authorization: 'Token ' + localStorage.getItem('id_token'),
+            Authorization: "Token " + localStorage.getItem("id_token")
         };
-    },
+    }
 };

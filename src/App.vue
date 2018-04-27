@@ -17,21 +17,21 @@
   </div>
 </template>
 
-<script lang="ts">
- import auth from './components/auth';
+<script>
+import auth from "./auth.js";
 
- export default {
-   data() {
-     return {
-       user: auth.user,
-     };
-   },
+export default {
+  data() {
+    return {
+      user: auth.user
+    };
+  },
 
-   methods: {
-     logout() {
-       auth.logout();
-       this.$router.push({name: 'login'});
-     },
-   },
- };
+  methods: {
+    logout: function() {
+      auth.logout();
+      this.$router.push({ name: "login" });
+    }
+  }
+};
 </script>

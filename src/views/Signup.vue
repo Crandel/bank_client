@@ -4,7 +4,7 @@
     <p>Sign up to get information about your accounts.</p>
     <div class="form-group">
       <div class="alert alert-danger" v-if="error.username">
-        <p v-for="err in error.username">{{ err }}</p>
+        <p v-for="err in error.username" :key="err">{{ err }}</p>
       </div>
       <input
           type="text"
@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
       <div class="alert alert-danger" v-if="error.email">
-        <p v-for="err in error.email">{{ err }}</p>
+        <p v-for="err in error.email" :key="err">{{ err }}</p>
       </div>
 
       <input
@@ -27,7 +27,7 @@
     </div>
     <div class="form-group">
       <div class="alert alert-danger" v-if="error.password">
-        <p v-for="err in error.password">{{ err }}</p>
+        <p v-for="err in error.password" :key="err">{{ err }}</p>
       </div>
       <input
           type="password"
@@ -40,34 +40,31 @@
   </div>
 </template>
 
-<script lang="ts">
- import auth from '.components/auth';
+<script>
+import auth from "../auth.js";
 
- export default {
+export default {
+  data() {
+    return {
+      credentials: {
+        username: "",
+        email: "",
+        password: ""
+      },
+      error: ""
+    };
+  },
 
-   data() {
-     return {
-       credentials: {
-         username: '',
-         email: '',
-         password: '',
-       },
-       error: '',
-     };
-   },
+  methods: {
+    submit() {
+      const credentials = {
+        username: this.credentials.username,
+        email: this.credentials.email,
+        password: this.credentials.password
+      };
 
-   methods: {
-
-     submit() {
-
-       const credentials = {
-         username: this.credentials.username,
-         email: this.credentials.email,
-         password: this.credentials.password,
-       };
-
-       auth.signup(this, credentials, 'home');
-     },
-   },
- };
+      auth.signup(this, credentials, "home");
+    }
+  }
+};
 </script>

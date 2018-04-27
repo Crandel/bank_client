@@ -3,9 +3,9 @@
     <h1>List of Accounts</h1>
     <div v-if="accounts">
       <div class="alert alert-danger" v-if="errors">
-        <p v-for="er in errors">{{ er }}</p>
+        <p v-for="er in errors" :key="er.code">{{ er }}</p>
       </div>
-      <div class="account bg-success" v-for="account in accounts">
+      <div class="account bg-success" v-for="account in accounts" :key="account.id">
         <p>Balance: {{ account.balance }} {{ account.currency_type }}, transactions: {{ account.transactions_count }}
         </p>
         <router-link  class='btn btn-primary' :to="{ name: 'account', params: { AcId: account.id }}">
@@ -20,21 +20,20 @@
 </template>
 
 <script>
- import {getAccountsMixin} from './components/mixin';
+import { getAccountsMixin } from "../mixin.js";
 
- export default {
-
-   data() {
-     return {
-       accounts: '',
-       errors: '',
-     };
-   },
-   mixins: [getAccountsMixin],
-   created() {
-     this.getAccounts();
-   },
- };
+export default {
+  data() {
+    return {
+      accounts: "",
+      errors: ""
+    };
+  },
+  mixins: [getAccountsMixin],
+  created() {
+    this.getAccounts();
+  }
+};
 </script>
 <style lang="stylus">
   .account

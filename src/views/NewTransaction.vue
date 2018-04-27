@@ -21,7 +21,7 @@
         </div>
         <label for="">Source Account
           <select class="form-control" v-model="transaction.source_account">
-            <option v-for="acc in accounts" :value="acc.id">{{ acc.balance }} {{ acc.currency_type }}</option>
+            <option v-for="acc in accounts" :key="acc.id" :value="acc.id">{{ acc.balance }} {{ acc.currency_type }}</option>
           </select>
         </label>
       </div>
@@ -31,7 +31,7 @@
         </div>
         <label for="">Destination Account
           <select class="form-control" v-model="transaction.destination_account">
-            <option v-for="acc in accounts" :value="acc.id">{{ acc.balance }} {{ acc.currency_type }}</option>
+            <option v-for="acc in accounts" :key="acc.id" :value="acc.id">{{ acc.balance }} {{ acc.currency_type }}</option>
           </select>
         </label>
       </div>
@@ -40,39 +40,39 @@
   </div>
 </template>
 
-<script lang="ts">
- import auth from './components/auth';
- import {getAccountsMixin} from './components/mixin';
+<script>
+import auth from "../auth.js";
+import { getAccountsMixin } from "../mixin.js";
 
- export default {
-
-   data() {
-     return {
-       transaction: {
-         source_account: '',
-         destination_account: '',
-         amount: 0,
-       },
-       accounts: '',
-       errors: '',
-       error: '',
-     };
-   },
-   mixins: [getAccountsMixin],
-   created() {
-     this.getAccounts();
-   },
-   methods: {
-     submit() {
-       const headers = auth.getAuthHeader();
-       this.$http.post('transactions/', this.transaction, {headers}).then(
-         (data) => {
-           this.$router.push({name: 'home'});
-         }, (err) => {
-           this.error = err.body.message;
-         },
-       );
-     },
-   },
- };
+export default {
+  data() {
+    return {
+      transaction: {
+        source_account: "",
+        destination_account: "",
+        amount: 0
+      },
+      accounts: "",
+      errors: "",
+      error: ""
+    };
+  },
+  mixins: [getAccountsMixin],
+  created() {
+    this.getAccounts();
+  },
+  methods: {
+    submit() {
+      const headers = auth.getAuthHeader();
+      this.$http.post("transactions/", this.transaction, { headers }).then(
+        data => {
+          this.$router.push({ name: "home" });
+        },
+        err => {
+          this.error = err.body.message;
+        }
+      );
+    }
+  }
+};
 </script>
