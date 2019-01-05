@@ -12,51 +12,44 @@ import auth from "./auth.js";
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
     routes: [
         {
-            path: "/", component: Home, name: "home", beforeEnter: (to, from, next) => {
-                // if (auth.user.authenticated) {
-                    next();
-                // } else {
-                //     to = {name: "login"};
-                //     next(to);
-                // }
+            path: "/",
+            component: Home,
+            name: "home",
+            meta: {
+                requiresAuth: true,
             }
         }, {
-            path: "/transaction", component: NewTransaction,
-            name: "transaction", beforeEnter: (to, from, next) => {
-                if (auth.user.authenticated) {
-                    next();
-                } else {
-                    to = {name: "login"};
-                    next(to);
-                }
+            path: "/transaction",
+            component: NewTransaction,
+            name: "transaction",
+            meta: {
+                requiresAuth: true,
             }
         }, {
-            path: "/account/:AcId", component: Account,
-            name: "account", beforeEnter: (to, from, next) => {
-                if (auth.user.authenticated) {
-                    next();
-                } else {
-                    to = {name: "login"};
-                    next(to);
-                }
+            path: "/account/:AcId",
+            component: Account,
+            name: "account",
+            meta: {
+                requiresAuth: true,
             }
         }, {
-            path: "/account/new", component: NewAccount,
-            name: "new-account", beforeEnter: (to, from, next) => {
-                if (auth.user.authenticated) {
-                    next();
-                } else {
-                    to = {name: "login"};
-                    next(to);
-                }
+            path: "/account/new",
+            component: NewAccount,
+            name: "new-account",
+            meta: {
+                requiresAuth: true,
             }
         }, {
-            path: "/login", component: Login, name: "login"
+            path: "/login",
+            component: Login,
+            name: "login"
         }, {
-            path: "/signup", component: Signup, name: "signup"
+            path: "/signup",
+            component: Signup,
+            name: "signup"
         },
         {
             path: "*", redirect: "/"
@@ -64,3 +57,16 @@ export default new Router({
     ]
 });
 
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)){
+        if (auth.user.authenticated) {
+            next();
+        } else {
+            to = {name: "login"};
+            next(to);
+        }
+    } else {
+        next();
+    }
+});
+export default router;
