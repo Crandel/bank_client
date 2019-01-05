@@ -4,8 +4,6 @@ import router from "./router";
 import store from "./store";
 import VueResource from "vue-resource";
 
-
-
 import auth from "./auth.js";
 
 Vue.use(VueResource);
