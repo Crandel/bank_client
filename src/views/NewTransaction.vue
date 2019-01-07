@@ -7,12 +7,10 @@
           <p>{{ error.amount }}</p>
         </div>
         <label for="">Amount
-          <input
-              type="number"
-              class="form-control"
-              placeholder="Enter amount"
-              v-model="transaction.amount"
-          >
+          <input type="number"
+                 class="form-control"
+                 placeholder="Enter amount"
+                 v-model="transaction.amount"/>
         </label>
       </div>
       <div class="form-group">
@@ -20,8 +18,11 @@
           <p>{{ error.source_account }}</p>
         </div>
         <label for="">Source Account
-          <select class="form-control" v-model="transaction.source_account">
-            <option v-for="acc in accounts" :key="acc.id" :value="acc.id">{{ acc.balance }} {{ acc.currency_type }}</option>
+          <select class="form-control"
+                  v-model="transaction.source_account">
+            <option v-for="acc in accounts" :key="acc.id" :value="acc.id">
+              {{ acc.balance }} {{ acc.currency_type }}
+            </option>
           </select>
         </label>
       </div>
@@ -30,8 +31,11 @@
           <p>{{ error.destination_account }}</p>
         </div>
         <label for="">Destination Account
-          <select class="form-control" v-model="transaction.destination_account">
-            <option v-for="acc in accounts" :key="acc.id" :value="acc.id">{{ acc.balance }} {{ acc.currency_type }}</option>
+          <select class="form-control"
+                  v-model="transaction.destination_account">
+            <option v-for="acc in accounts" :key="acc.id" :value="acc.id">
+              {{ acc.balance }} {{ acc.currency_type }}
+            </option>
           </select>
         </label>
       </div>
@@ -42,6 +46,7 @@
 
 <script>
 import auth from "../auth.js";
+import api from "../api.js";
 import { getAccountsMixin } from "../mixin.js";
 
 export default {
@@ -64,7 +69,7 @@ export default {
   methods: {
     submit() {
       const headers = auth.getAuthHeader();
-      this.$http.post("transactions/", this.transaction, { headers }).then(
+      this.$http.post(api.transaction, this.transaction, { headers }).then(
         data => {
           this.$router.push({ name: "home" });
         },

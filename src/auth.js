@@ -1,7 +1,7 @@
 import router from "./router.js";
+import api from "./api.js";
 
-const LOGIN_URL = "users/login";
-const SIGNUP_URL = "users/signup";
+const JWT = "jwt_id";
 
 export default {
   user: {
@@ -9,9 +9,9 @@ export default {
   },
 
   login(context, creds, redirect) {
-    context.$http.post(LOGIN_URL, creds).then(
+    context.$http.post(api.login, creds).then(
       data => {
-        localStorage.setItem("id_token", data.body.token),
+        localStorage.setItem(JWT, data.body.token),
           (this.user.authenticated = true);
 
         if (redirect) {
@@ -25,9 +25,9 @@ export default {
   },
 
   signup(context, creds, redirect) {
-    context.$http.post(SIGNUP_URL, creds).then(
+    context.$http.post(api.signup, creds).then(
       data => {
-        localStorage.setItem("id_token", data.data.token);
+        localStorage.setItem(JWT, data.data.token);
 
         this.user.authenticated = true;
 
@@ -42,12 +42,12 @@ export default {
   },
 
   logout() {
-    localStorage.removeItem("id_token");
+    localStorage.removeItem(JWT);
     this.user.authenticated = false;
   },
 
   checkAuth() {
-    const token = localStorage.getItem("id_token");
+    const token = localStorage.getItem(JWT);
     if (token) {
       this.user.authenticated = true;
     } else {
@@ -57,7 +57,7 @@ export default {
 
   getAuthHeader() {
     return {
-      Authorization: "Token " + localStorage.getItem("id_token")
+      Authorization: "Token " + localStorage.getItem(JWT)
     };
   }
 };

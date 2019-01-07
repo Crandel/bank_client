@@ -5,19 +5,19 @@
       <div class="alert alert-danger" v-if="error.balance">
         <p v-for="er in error.balance" :key="er">{{ er }}</p>
       </div>
-      <input
-          type="number"
-          class="form-control"
-          placeholder="Enter balance"
-          v-model="account.balance"
-      >
+      <input type="number"
+             class="form-control"
+             placeholder="Enter balance"
+             v-model="account.balance"/>
     </div>
     <div class="form-group">
       <div class="alert alert-danger" v-if="error.currency">
         <p v-for="er in error.currency" :key="er">{{ er }}</p>
       </div>
       <select class="form-control" v-model="account.currency">
-        <option v-for="cur in currencies" :key="cur.id" :value="cur.value">{{ cur.key }}</option>
+        <option v-for="cur in currencies" :key="cur.id" :value="cur.value">
+          {{ cur.key }}
+        </option>
       </select>
     </div>
     <button class="btn btn-primary" @click="submit()">Save</button>
@@ -26,6 +26,7 @@
 
 <script>
 import auth from "../auth.js";
+import api from "../api.js";
 
 export default {
   data() {
@@ -58,7 +59,7 @@ export default {
   methods: {
     submit() {
       const headers = auth.getAuthHeader();
-      this.$http.post("accounts/", this.account, { headers }).then(
+      this.$http.post(api.account, this.account, { headers }).then(
         data => {
           this.$router.push({ name: "home" });
         },

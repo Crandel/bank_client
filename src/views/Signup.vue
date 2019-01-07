@@ -6,35 +6,29 @@
       <div class="alert alert-danger" v-if="error.username">
         <p v-for="err in error.username" :key="err">{{ err }}</p>
       </div>
-      <input
-          type="text"
-          class="form-control"
-          placeholder="Enter your username"
-          v-model="credentials.username"
-      >
+      <input type="text"
+             class="form-control"
+             placeholder="Enter your username"
+             v-model="credentials.username"/>
     </div>
     <div class="form-group">
       <div class="alert alert-danger" v-if="error.email">
         <p v-for="err in error.email" :key="err">{{ err }}</p>
       </div>
 
-      <input
-          type="email"
-          class="form-control"
-          placeholder="Enter your email"
-          v-model="credentials.email"
-      >
+      <input type="email"
+             class="form-control"
+             placeholder="Enter your email"
+             v-model="credentials.email"/>
     </div>
     <div class="form-group">
       <div class="alert alert-danger" v-if="error.password">
         <p v-for="err in error.password" :key="err">{{ err }}</p>
       </div>
-      <input
-          type="password"
-          class="form-control"
-          placeholder="Enter your password"
-          v-model="credentials.password"
-      >
+      <input type="password"
+             class="form-control"
+             placeholder="Enter your password"
+             v-model="credentials.password"/>
     </div>
     <button class="btn btn-primary" @click="submit()">Access</button>
   </div>

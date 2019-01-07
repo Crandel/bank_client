@@ -5,15 +5,20 @@
       <div class="alert alert-danger" v-if="errors">
         <p v-for="er in errors" :key="er.code">{{ er }}</p>
       </div>
-      <div class="account bg-success" v-for="account in accounts" :key="account.id">
-        <p>Balance: {{ account.balance }} {{ account.currency_type }}, transactions: {{ account.transactions_count }}
+      <div class="account bg-success"
+           v-for="account in accounts"
+           :key="account.id">
+        <p>
+          Balance: {{ account.balance }} {{ account.currency_type }},
+          transactions: {{ account.transactions_count }}
         </p>
-        <router-link  class='btn btn-primary' :to="{ name: 'account', params: { AcId: account.id }}">
+        <router-link class="btn btn-primary"
+                     :to="{ name: 'account', params: { AcId: account.id } }">
           Account details
         </router-link>
       </div>
     </div>
-    <router-link  class='btn btn-success' :to="{ name: 'new-account'}">
+    <router-link class="btn btn-success" :to="{ name: 'new-account' }">
       New Account
     </router-link>
   </div>
@@ -36,8 +41,8 @@ export default {
 };
 </script>
 <style lang="stylus">
-  .account
-    border: 1px solid #ccc
-    padding: 10 px
-    margin: 10px
+.account
+  border: 1px solid #ccc
+  padding: 10 px
+  margin: 10px
 </style>
