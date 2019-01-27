@@ -1,9 +1,9 @@
 let api = {
   login: "login",
   signup: "signup",
-  account: "accounts",
+  account: "accounts/",
   account_list: "accounts/list",
-  transaction: "transactions"
+  transaction: "transactions/"
 };
 
 export default api;
